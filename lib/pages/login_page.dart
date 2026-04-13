@@ -29,7 +29,9 @@ class _loginPageState extends State<LoginPage> {
                       children: [
                         _titleText(),
                         _loginForm(),
+                        SizedBox(height: _deviceHeight!*0.4,),
                         _loginButton(),
+                        _registerPageLink(),
                       ],
                     ),
                   ),
@@ -40,6 +42,7 @@ class _loginPageState extends State<LoginPage> {
 
   Widget _loginForm(){
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: _deviceWidth!*0.05),
       height: _deviceHeight!*0.2,
       child: Form(
           key: _loginFormKey,
@@ -59,14 +62,17 @@ class _loginPageState extends State<LoginPage> {
   Widget _emailFormField(){
     return TextFormField(
       decoration: const InputDecoration(
-        label: Text("Email...."),
+        label: Text("Email"),
       ),
       onSaved: (newValue) => setState(() {
         email = newValue;
       }),
       validator: (value) {
-        bool result = value!.contains(RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,}"));
-        return result?null:"Masukkan Email Dengan Benar!";
+        bool result = value!.contains(
+          RegExp(
+              r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"),
+        );
+        return result ? null : "Masukkan Email Dengan Benar!";
       },
     );
   }
@@ -75,19 +81,24 @@ class _loginPageState extends State<LoginPage> {
     return TextFormField(
       obscureText: true,
       decoration: const InputDecoration(
-        label: Text("Password...."),
+        label: Text("Password"),
       ),
       onSaved: (newValue) => setState(() {
         password = newValue;
       }),
-      validator: (value) => value!.length < 6 ? null : "Password Harus Lebih Dari 6 Character",
+      validator: (value) {
+        if (value == null || value.length < 6) {
+          return "Password harus lebih dari 6 karakter";
+        }
+        return null;
+      },
     );
   }
 
 
   Widget _loginButton(){
     return MaterialButton(
-      onPressed: (){},
+      onPressed: _loginUser,
       color: Colors.blueAccent,
       minWidth: _deviceWidth!*0.7,
       height: _deviceHeight!*0.05,
@@ -111,6 +122,27 @@ class _loginPageState extends State<LoginPage> {
         color:Colors.black, 
       ),
       );
+  }
+
+  void _loginUser(){
+    if (_loginFormKey.currentState!.validate()) {
+      
+    }
+  }
+
+  Widget _registerPageLink(){
+    return GestureDetector(
+      onTap: (){
+        Navigator.pushNamed(context,'register');},
+      child: Text(
+        "Don't Have An Account?",
+        style: TextStyle(
+          color: Colors.blue,
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
+        ),
+    );
   }
 
 
