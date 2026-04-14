@@ -1,4 +1,6 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 class RegisterPage extends StatefulWidget{
   @override
@@ -12,6 +14,8 @@ class _registerPageState extends State<RegisterPage> {
   double? _deviceHeight,_deviceWidth;
   final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
   String? username,email,password;
+  File? _image; 
+  
 
  @override
   Widget build(BuildContext context) {
@@ -28,6 +32,7 @@ class _registerPageState extends State<RegisterPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         _titleText(),
+                        _imageProfile(),
                         _registerForm(),
                         _registerButton(),
                       ],
@@ -37,6 +42,30 @@ class _registerPageState extends State<RegisterPage> {
             ),
       );
   }
+
+  Widget _imageProfile() {
+    var _imageProvider = _image != null ? FileImage(_image!): AssetImage("assets/images/profile.png"); 
+  return GestureDetector(
+    onTap: (){
+      FilePicker.pickFiles(type: FileType.image).then((value){
+        setState(() {
+          _image = File(value!.files.first.path!);
+        });
+      });
+    },
+    child: Container(
+      height: _deviceHeight! * 0.10,
+      width: _deviceWidth! * 0.20,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        image: DecorationImage(
+          image: _imageProvider as ImageProvider,
+          fit: BoxFit.cover,
+          ),
+        ),
+      ),
+  );
+  } 
 
   Widget _registerForm(){
     return Container(
@@ -140,8 +169,8 @@ Widget _registerButton(){
   }
 
   void _registerUser(){
-    if (_registerFormKey.currentState!.validate()) {
-      
+    if (_registerFormKey.currentState!.validate() && _image != null) {
+      _registerFormKey.currentState!.save();
     }
   }
 

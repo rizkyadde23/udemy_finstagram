@@ -1,4 +1,9 @@
 {
     "cmake.ignoreCMakeListsMissing": true,
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "flutterTools.displayGetxContextMenu": false,
+    "flutterTools.displayMobxContextMenu": false,
+    "flutterTools.displayRiverpodContextMenu": false,
+    "flutterTools.displayModularContextMenu": false,
+    "flutterTools.displaySignalsContextMenu": false
 }
