@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      initialRoute: 'home',
+      initialRoute: 'login',
       routes: {
         'login': (context) => LoginPage(),
         'register': (context) => RegisterPage(),
