@@ -1,6 +1,9 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:finstagram/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
+
+import 'package:get_it/get_it.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -16,6 +19,13 @@ class _registerPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
   String? username, email, password;
   File? _image;
+  FirebaseService? _firebaseService;
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseService = GetIt.instance.get<FirebaseService>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,9 +171,16 @@ class _registerPageState extends State<RegisterPage> {
     );
   }
 
-  void _registerUser() {
+  void _registerUser() async {
     if (_registerFormKey.currentState!.validate() && _image != null) {
       _registerFormKey.currentState!.save();
+      bool _result = await _firebaseService!.registerUser(
+        name: username!,
+        email: email!,
+        password: password!,
+        image: _image!,
+      );
+      if (_result) Navigator.pop(context);
     }
   }
 }
