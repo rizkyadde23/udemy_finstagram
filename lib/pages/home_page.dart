@@ -2,50 +2,41 @@ import 'package:finstagram/pages/feed_page.dart';
 import 'package:finstagram/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget{
+class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _homePageState();
   }
+
   const HomePage({super.key});
 }
 
-class _homePageState extends State<HomePage>{
+class _homePageState extends State<HomePage> {
   int selectedIndex = 0;
-  final List<Widget> _pages = [
-    FeedPage(),
-    ProfilePage(),
-  ]; 
+  final List<Widget> _pages = [FeedPage(), ProfilePage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
-        title: Text("FINSTAGRAM", style: TextStyle(fontWeight: FontWeight.w600),),
+        title: Text(
+          "FINSTAGRAM",
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
         actions: [
-          GestureDetector(
-            onTap: () {
-              
-            },
-            child: Icon(Icons.camera_alt_sharp),
-          ),
-          Padding(padding: EdgeInsetsGeometry.only(left: 8,right: 8)),
-          GestureDetector(
-            onTap: () {
-              
-            },
-            child: Icon(Icons.logout_outlined),
-          ),
+          GestureDetector(onTap: () {}, child: Icon(Icons.camera_alt_sharp)),
+          Padding(padding: EdgeInsetsGeometry.only(left: 8, right: 8)),
+          GestureDetector(onTap: () {}, child: Icon(Icons.logout_outlined)),
           Padding(padding: EdgeInsetsGeometry.only(right: 8)),
         ],
       ),
       bottomNavigationBar: _bottomNavBar(),
       body: _pages[selectedIndex],
-    ); 
+    );
   }
 
-  Widget _bottomNavBar(){
+  Widget _bottomNavBar() {
     return BottomNavigationBar(
       currentIndex: selectedIndex,
       onTap: (index) {
@@ -54,15 +45,12 @@ class _homePageState extends State<HomePage>{
         });
       },
       items: [
+        BottomNavigationBarItem(label: "Feed", icon: Icon(Icons.feed)),
         BottomNavigationBarItem(
-          label: "Feed",
-          icon: Icon(Icons.feed)
-          ),
-          BottomNavigationBarItem(
           label: "Profile",
-          icon: Icon(Icons.account_box)
-          ),
-      ]
-      );
+          icon: Icon(Icons.account_box),
+        ),
+      ],
+    );
   }
 }

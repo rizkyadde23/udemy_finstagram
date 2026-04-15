@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatefulWidget{
+class ProfilePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _profilePageState();
   }
 }
 
-class _profilePageState extends State<ProfilePage>{
+class _profilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue,
-    );
+    return Container(color: Colors.blue);
   }
 }
